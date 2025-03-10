@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Shaadi Day</title>
+    <style>
+        :root {
+            --primary: #d81b60;
+            --secondary: #f48fb1;
+            --accent: #880e4f;
+            --light: #fce4ec;
+            --dark: #333;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--accent);
+            padding: 0.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: var(--secondary);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .countdown-item {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        /* Event Schedule */
+        .event-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .event-item {
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .event-time {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        /* Moodboard */
+        .moodboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .moodboard-item {
+            background-color: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .moodboard-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .moodboard-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .moodboard-content {
+            padding: 1rem;
+        }
+        
+        .moodboard-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background-color: var(--light);
+        }
+        
+        /* Outfit Gallery */
+        .outfit-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .outfit-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .outfit-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .outfit-details {
+            padding: 1rem;
+            background-color: white;
+        }
+        
+        /* RSVP Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--accent);
+        }
+        
+        /* Modal for Adding Content */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .close {
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>University Shaadi Day 2025</h1>
+        <p>A celebration of traditions and friendships</p>
+    </header>
+    
+    <nav>
+        <a href="#moodboard">Moodboard</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#outfits">Outfit Gallery</a>
+        <a href="#rsvp">RSVP</a>
+    </nav>
+    
+    <div class="container">
+        <!-- Countdown Section -->
+        <div class="section">
+            <h2>Countdown to Shaadi Day</h2>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">30</div>
+                    <div>Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">12</div>
+                    <div>Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">45</div>
+                    <div>Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">20</div>
+                    <div>Seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Event Schedule Section -->
+        <div class="section" id="schedule">
+            <h2>Event Schedule</h2>
+            <ul class="event-list">
+                <li class="event-item">
+                    <div class="event-time">9:00 AM - 10:00 AM</div>
+                    <div class="event-name">Registration and Welcome</div>
+                    <div class="event-description">Sign in at the university hall and collect your welcome kit</div>
+                </li>
+                <li class="event-item">
+                    <div class="event-time">10:00 AM - 11:30 AM</div>
+                    <div class="event-name">Opening Ceremony</div>
+                    <div class="event-description">Introduction to the day's activities and theme presentations</div>
+                </li>
+                <li class="event-item">
+                    <div class="event-time">11:30 AM - 1:00 PM</div>
+                    <div class="event-name">Mehendi & Photobooth</div>
+                    <div class="event-description">Get traditional henna designs and take themed photos</div>
+                </li>
+                <li class="event-item">
+                    <div class="event-time">1:00 PM - 2:30 PM</div>
+                    <div class="event-name">Lunch Break</div>
+                    <div class="event-description">Traditional wedding feast in the university cafeteria</div>
+                </li>
+                <li class="event-item">
+                    <div class="event-time">2:30 PM - 4:00 PM</div>
+                    <div class="event-name">Group Activities & Games</div>
+                    <div class="event-description">Participate in fun wedding-themed group competitions</div>
+                </li>
+                <li class="event-item">
+                    <div class="event-time">4:00 PM - 5:30 PM</div>
+                    <div class="event-name">Bride & Groom Ceremony</div>
+                    <div class="event-description">Announcement of elected bride and groom with special performances</div>
+                </li>
+                <li class="event-item">
+                    <div class="event-time">5:30 PM - 8:00 PM</div>
+                    <div class="event-name">Dinner & Dance</div>
+                    <div class="event-description">Evening celebration with music, dancing and dinner</div>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Moodboard Section -->
+        <div class="section" id="moodboard">
+            <h2>Moodboard</h2>
+            <p>Share your inspiration for our Shaadi Day! Post decor ideas, color themes, or anything that inspires you.</p>
+            <button id="addMoodboardBtn">+ Add to Moodboard</button>
+            
+            <div class="moodboard">
+                <div class="moodboard-item">
+                    <img src="/api/placeholder/400/320" alt="Decor idea" class="moodboard-img">
+                    <div class="moodboard-content">
+                        <h4>Traditional Flowers</h4>
+                        <p>Marigold garlands for entrance decoration</p>
+                    </div>
+                    <div class="moodboard-actions">
+                        <span>Posted by: Aisha</span>
+                        <span>❤️ 12</span>
+                    </div>
+                </div>
+                
+                <div class="moodboard-item">
+                    <img src="/api/placeholder/400/320" alt="Color palette" class="moodboard-img">
+                    <div class="moodboard-content">
+                        <h4>Color Palette</h4>
+                        <p>Red, gold and cream theme inspiration</p>
+                    </div>
+                    <div class="moodboard-actions">
+                        <span>Posted by: Rahul</span>
+                        <span>❤️ 8</span>
+                    </div>
+                </div>
+                
+                <div class="moodboard-item">
+                    <img src="/api/placeholder/400/320" alt="Stage setup" class="moodboard-img">
+                    <div class="moodboard-content">
+                        <h4>Stage Setup</h4>
+                        <p>Main hall decoration with drapes and lights</p>
+                    </div>
+                    <div class="moodboard-actions">
+                        <span>Posted by: Priya</span>
+                        <span>❤️ 15</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Outfit Gallery Section -->
+        <div class="section" id="outfits">
+            <h2>Outfit Gallery</h2>
+            <p>Browse outfit ideas or share what you're planning to wear!</p>
+            <button id="addOutfitBtn">+ Share Your Outfit</button>
+            
+            <div class="outfit-gallery">
+                <div class="outfit-item">
+                    <img src="/api/placeholder/400/320" alt="Traditional outfit" class="outfit-img">
+                    <div class="outfit-details">
+                        <h3>Traditional Lehenga</h3>
+                        <p>Red embroidered lehenga with gold accents</p>
+                        <p><strong>Shared by:</strong> Maya</p>
+                    </div>
+                </div>
+                
+                <div class="outfit-item">
+                    <img src="/api/placeholder/400/320" alt="Sherwani" class="outfit-img">
+                    <div class="outfit-details">
+                        <h3>Modern Sherwani</h3>
+                        <p>Navy blue sherwani with minimal embroidery</p>
+                        <p><strong>Shared by:</strong> Arjun</p>
+                    </div>
+                </div>
+                
+                <div class="outfit-item">
+                    <img src="/api/placeholder/400/320" alt="Saree" class="outfit-img">
+                    <div class="outfit-details">
+                        <h3>Silk Saree</h3>
+                        <p>Pink and gold Banarasi silk saree</p>
+                        <p><strong>Shared by:</strong> Divya</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RSVP Section -->
+        <div class="section" id="rsvp">
+            <h2>RSVP & Group Formation</h2>
+            <p>Confirm your attendance and join a family group for the day's activities!</p>
+            
+            <form id="rsvpForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendance">Will you attend?</label>
+                    <select id="attendance" required>
+                        <option value="">--Select--</option>
+                        <option value="yes">Yes, I'll be there!</option>
+                        <option value="no">Sorry, I can't make it</option>
+                        <option value="maybe">Maybe, will confirm later</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="group">Choose a Family Group</label>
+                    <select id="group">
+                        <option value="">--Select a group--</option>
+                        <option value="patel">Patel Family</option>
+                        <option value="sharma">Sharma Family</option>
+                        <option value="singh">Singh Family</option>
+                        <option value="khan">Khan Family</option>
+                        <option value="new">Create a new family group</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="newGroupContainer" style="display: none;">
+                    <label for="newGroup">New Family Group Name</label>
+                    <input type="text" id="newGroup">
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Special Notes</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                
+                <button type="submit">Submit RSVP</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Moodboard Add Modal -->
+    <div id="moodboardModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add to Moodboard</h3>
+            <form id="moodboardForm">
+                <div class="form-group">
+                    <label for="moodTitle">Title</label>
+                    <input type="text" id="moodTitle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="moodDescription">Description</label>
+                    <textarea id="moodDescription" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="moodImage">Image URL (or upload)</label>
+                    <input type="file" id="moodImage">
+                </div>
+                
+                <div class="form-group">
+                    <label for="moodCategory">Category</label>
+                    <select id="moodCategory" required>
+                        <option value="">--Select Category--</option>
+                        <option value="decor">Decoration</option>
+                        <option value="colors">Color Palette</option>
+                        <option value="food">Food & Catering</option>
+                        <option value="activities">Activities</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Add to Moodboard</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Outfit Add Modal -->
+    <div id="outfitModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Share Your Outfit</h3>
+            <form id="outfitForm">
+                <div class="form-group">
+                    <label for="outfitTitle">Outfit Name</label>
+                    <input type="text" id="outfitTitle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="outfitDescription">Description</label>
+                    <textarea id="outfitDescription" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="outfitImage">Image</label>
+                    <input type="file" id="outfitImage">
+                </div>
+                
+                <div class="form-group">
+                    <label for="outfitType">Type</label>
+                    <select id="outfitType" required>
+                        <option value="">--Select Type--</option>
+                        <option value="traditional">Traditional</option>
+                        <option value="fusion">Indo-Western Fusion</option>
+                        <option value="modern">Modern</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Share Outfit</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 University Shaadi Day | Created with ❤️ for the Senior Year</p>
+    </footer>
+    
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const eventDate = new Date('May 15, 2025 09:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Modal functionality
+        const moodboardModal = document.getElementById('moodboardModal');
+        const outfitModal = document.getElementById('outfitModal');
+        const addMoodboardBtn = document.getElementById('addMoodboardBtn');
+        const addOutfitBtn = document.getElementById('addOutfitBtn');
+        const closeButtons = document.querySelectorAll('.close');
+        
+        addMoodboardBtn.onclick = function() {
+            moodboardModal.style.display = 'flex';
+        }
+        
+        addOutfitBtn.onclick = function() {
+            outfitModal.style.display = 'flex';
+        }
+        
+        closeButtons.forEach(button => {
+            button.onclick = function() {
+                moodboardModal.style.display = 'none';
+                outfitModal.style.display = 'none';
+            }
+        });
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == moodboardModal) {
+                moodboardModal.style.display = 'none';
+            }
+            if (event.target == outfitModal) {
+                outfitModal.style.display = 'none';
+            }
+        }
+        
+        // Handle new group option
+        const groupSelect = document.getElementById('group');
+        const newGroupContainer = document.getElementById('newGroupContainer');
+        
+        groupSelect.addEventListener('change', function() {
+            if (this.value === 'new') {
+                newGroupContainer.style.display = 'block';
+            } else {
+                newGroupContainer.style.display = 'none';
+            }
+        });
+        
+        // Form submission handlers (would connect to backend in real implementation)
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('RSVP submitted successfully! You would be redirected to a confirmation page in a real implementation.');
+            this.reset();
+        });
+        
+        document.getElementById('moodboardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your inspiration has been added to the moodboard! It would appear after approval in a real implementation.');
+            moodboardModal.style.display = 'none';
+            this.reset();
+        });
+        
+        document.getElementById('outfitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your outfit has been shared! It would appear after approval in a real implementation.');
+            outfitModal.style.display = 'none';
+            this.reset();
+        });
+    </script>
+</body>
+</html>
